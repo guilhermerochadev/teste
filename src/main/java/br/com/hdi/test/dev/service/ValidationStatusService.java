@@ -18,36 +18,39 @@ public class ValidationStatusService {
 	private WebClient webClientBrokerData;
 	
 	
-	public StatusCorretor obterStatus(Long documentoCode) {
+	public StatusCorretor obterStatus(Long codigo) {
 
 		Mono<StatusCorretor> monoBroker = this.webClientBroker
 			.method(HttpMethod.GET)
-			.uri("/broker/{document}", documentoCode)
+			.uri("/{document}", codigo)
 			.retrieve()
 			.bodyToMono(StatusCorretor.class);
 	
 		Mono<StatusCorretor> monoBrokerData = this.webClientBrokerData
 				.method(HttpMethod.GET)
-				.uri("/brokerData{code}", documentoCode)
+				.uri("/{code}", codigo)
 				.retrieve()
 				.bodyToMono(StatusCorretor.class);
 
-//		StatusCorretor statusCor = Mono.zip(monoBroker, monoBrokerData).map(tuple -> {
-//			tuple.getT1().setName(tuple.getT2().getName());
-//			tuple.getT1().setActive(tuple.getT2().getActive());
-//			tuple.getT1().setCode(tuple.getT2().getCode());
-//			return tuple.getT1();
-//		}).block();
+		StatusCorretor statusCor = Mono.zip(monoBroker, monoBrokerData).map(tuple -> {
+			tuple.getT1().setName(tuple.getT2().getName());
+			tuple.getT1().setActive(tuple.getT2().getActive());
+			tuple.getT1().setCode(tuple.getT2().getCode());
+			tuple.getT1().setDocument(tuple.getT2().getDocument());
+			return tuple.getT1();
+		}).block();
 		
-		StatusCorretor broker = monoBroker.block();
-		StatusCorretor brokerData = monoBrokerData.block();
+//		StatusCorretor broker = monoBroker.block();
+//		StatusCorretor brokerData = monoBrokerData.block();
+//
+//		broker.setName(brokerData.getName());
+//		broker.setActive(brokerData.getActive());
+//		broker.setCode(brokerData.getCode());
+//		broker.setDocument(brokerData.getDocument());
 
-		broker.setName(brokerData.getName());
-		broker.setActive(brokerData.getActive());
-		broker.setCode(brokerData.getCode());
-		broker.setDocument(brokerData.getDocument());
-
-		return broker;
+		return statusCor;
 
 	}
+	
+	
 }
