@@ -11,7 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class HdiTestDevApplication {
 	
 	@Bean
-	public WebClient webClientProdutos(WebClient.Builder builder) {
+	public WebClient webClientBroker(WebClient.Builder builder) {
 		return builder
 			.baseUrl("https://607732991ed0ae0017d6a9b0.mockapi.io/insurance/v1/broker")
 			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
