@@ -9,6 +9,7 @@ public class StatusCorretor {
 	
 	private String name;
 	private String active;
-	private String code;
+	private Long code;
+	private Long document;
 
 }

@@ -13,7 +13,7 @@ public class HdiTestDevApplication {
 	@Bean
 	public WebClient webClientBroker(WebClient.Builder builder) {
 		return builder
-			.baseUrl("https://607732991ed0ae0017d6a9b0.mockapi.io/insurance/v1/broker")
+			.baseUrl("https://607732991ed0ae0017d6a9b0.mockapi.io/insurance/v1")
 			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 			.build();
 	}
@@ -21,7 +21,7 @@ public class HdiTestDevApplication {
 	@Bean
 	public WebClient webClientBrokerData(WebClient.Builder builder) {
 		return builder
-			.baseUrl("https://607732991ed0ae0017d6a9b0.mockapi.io/insurance/v1/brokerData")
+			.baseUrl("https://607732991ed0ae0017d6a9b0.mockapi.io/insurance/v1")
 			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 			.build();
 	}
